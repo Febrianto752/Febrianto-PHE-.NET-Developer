@@ -12,14 +12,14 @@ namespace Models
         public Guid VendorGuid { get; set; }
 
         [ForeignKey("VendorGuid"), ValidateNever]
-        public Vendor Vendor { get; set; }
+        public Vendor? Vendor { get; set; }
 
 
         [Required, Column("project_guid")]
         public Guid PorjectGuid { get; set; }
 
         [ForeignKey("PorjectGuid"), ValidateNever]
-        public Project Project { get; set; }
+        public Project? Project { get; set; }
 
 
         [Required, Column("status")]

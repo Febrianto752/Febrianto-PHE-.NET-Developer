@@ -24,6 +24,6 @@ namespace Models
         public Guid AccountGuid { get; set; }
 
         [ForeignKey("AccountGuid"), ValidateNever]
-        public Account Account { get; set; }
+        public Account? Account { get; set; }
     }
 }
