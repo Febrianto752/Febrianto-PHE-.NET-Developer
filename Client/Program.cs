@@ -1,7 +1,15 @@
+using Client.Services;
+using Client.Services.interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
+
+builder.Services.AddScoped<IBaseService, BaseService>();
+builder.Services.AddScoped<IManagerLogisticService, ManagerLogisticService>();
 
 var app = builder.Build();
 

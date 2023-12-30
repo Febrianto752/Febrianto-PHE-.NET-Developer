@@ -1,0 +1,50 @@
+﻿@model List<GetAccountVM>
+
+<partial name="_FlashMessage"/>
+
+<h1 class="text-center my-5">Daftar Manajer Logistik</h1>
+
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">No Telp</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var managerLogistic in Model)
+        {
+            <tr>
+                <th scope="row"></th>
+                <td>@managerLogistic.Name</td>
+                <td>@managerLogistic.Email</td>
+                <td>@managerLogistic.NoTelp</td>
+                <td>
+                    <form method="post" asp-action="Delete">
+                        <input hidden asp-for="@managerLogistic.Guid" />
+                        <button type="submit" class="btn"><iconify-icon icon="ph:trash-bold"></iconify-icon></button>
+                    </form>
+                </td>
+            </tr>
+        }
+        
+       
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script>
+        let table = new DataTable('#myTable');
+
+        table
+            .on('order.dt search.dt', function () {
+                table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+    </script>
+}

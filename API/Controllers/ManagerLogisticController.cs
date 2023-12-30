@@ -1,6 +1,7 @@
 ﻿using DataAccess.Repositories.interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.ViewModels;
 using Models.ViewModels.Account;
 using System.Net;
 using Utilities.Enums;
@@ -25,12 +26,10 @@ namespace API.Controllers
 
             if (managerLogistics == null)
             {
-                return NotFound(new ResponseHandler<string>()
+                return NotFound(new ResponseVM
                 {
-                    Code = 404,
-                    Status = "Not Found",
-                    Message = "Manager Logistics Not Found",
-                    Data = null
+                    IsSuccess = false,
+                    Message = "Data not found"
                 });
             }
 
@@ -43,11 +42,10 @@ namespace API.Controllers
                 Role = ml.Role,
             });
 
-            return Ok(new ResponseHandler<IEnumerable<GetAccountVM>>()
+            return Ok(new ResponseVM
             {
-                Code = 200,
-                Status = "Data Found",
-                Message = "Manager Logistics Found",
+                IsSuccess = true,
+                Message = "Data found",
                 Data = managerLogisticsVM
             });
         }
@@ -59,12 +57,10 @@ namespace API.Controllers
 
             if (emailIsExist is not null)
             {
-                return BadRequest(new ResponseHandler<string>()
+                return BadRequest(new ResponseVM
                 {
-                    Code = 400,
-                    Status = "Bad Request",
-                    Message = "Email Already Exist",
-                    Data = null
+                    IsSuccess = false,
+                    Message = "Email already exist"
                 });
             }
 
@@ -84,20 +80,17 @@ namespace API.Controllers
 
             if (account == null)
             {
-                return BadRequest(new ResponseHandler<string>()
+                return BadRequest(new ResponseVM
                 {
-                    Code = 400,
-                    Status = "Bad Request",
-                    Message = "Manager Logistics Not Found",
-                    Data = null
+                    IsSuccess = false,
+                    Message = "Check your field"
                 });
             }
 
-            return Created("", new ResponseHandler<Account>()
+            return Created("", new ResponseVM
             {
-                Code = 201,
-                Status = "Data Created",
-                Message = "Manager Logistics has been created",
+                IsSuccess = true,
+                Message = "Data created",
                 Data = newAccount
             });
         }
@@ -109,12 +102,10 @@ namespace API.Controllers
 
             if (account == null)
             {
-                return NotFound(new ResponseHandler<string>()
+                return NotFound(new ResponseVM
                 {
-                    Code = 404,
-                    Status = "Not Found",
-                    Message = "Account Not Found",
-                    Data = null
+                    IsSuccess = false,
+                    Message = "Data not found"
                 });
             }
 
@@ -126,11 +117,10 @@ namespace API.Controllers
 
                 _accountRepository.SaveChanges();
 
-                return Ok(new ResponseHandler<string>
+                return Ok(new ResponseVM
                 {
-                    Code = StatusCodes.Status200OK,
-                    Status = HttpStatusCode.OK.ToString(),
-                    Message = "Successfully updated",
+                    IsSuccess = true,
+                    Message = "updated successfully"
                 });
             }
             catch (Exception ex)
@@ -152,31 +142,27 @@ namespace API.Controllers
 
             if (account == null)
             {
-                return NotFound(new ResponseHandler<string>()
+                return NotFound(new ResponseVM
                 {
-                    Code = 404,
-                    Status = "Not Found",
-                    Message = "Account Not Found",
-                    Data = null
+                    IsSuccess = false,
+                    Message = "Data not found"
                 });
             }
             try
             {
                 _accountRepository.Delete(account);
 
-                return Ok(new ResponseHandler<string>
+                return Ok(new ResponseVM
                 {
-                    Code = StatusCodes.Status200OK,
-                    Status = HttpStatusCode.OK.ToString(),
-                    Message = "Successfully deleted"
+                    IsSuccess = true,
+                    Message = "Successfully deleted data"
                 });
             }
             catch
             {
-                return BadRequest(new ResponseHandler<string>
+                return BadRequest(new ResponseVM
                 {
-                    Code = StatusCodes.Status500InternalServerError,
-                    Status = HttpStatusCode.InternalServerError.ToString(),
+                    IsSuccess = false,
                     Message = "Something went wrong"
                 });
             }
