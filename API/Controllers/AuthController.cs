@@ -48,7 +48,8 @@ namespace API.Controllers
             {
                 new Claim("Guid", account.Guid.ToString()),
                 new Claim(ClaimTypes.Role, account.Role),
-                new Claim(ClaimTypes.Email, loginDto.Email)
+                new Claim(ClaimTypes.Email, loginDto.Email),
+                new Claim(ClaimTypes.Name, account.Name)
             };
             var token = "";
             try

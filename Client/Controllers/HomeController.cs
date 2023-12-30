@@ -3,6 +3,7 @@ using Client.Services.interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Client.Controllers
 {
@@ -20,6 +21,9 @@ namespace Client.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
+            var username = User.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
+
+            ViewData["username"] = username;
 
             return View();
         }

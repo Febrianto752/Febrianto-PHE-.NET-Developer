@@ -24,17 +24,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string status = nameof(VendorStatusEnum.Accepted))
+        public IActionResult Index()
         {
-            List<Vendor> vendors = new();
-            if (status == nameof(VendorStatusEnum.Accepted))
-            {
-                vendors = _vendorRepository.GetAll(includeProperties: "Account").Where(v => v.Status == VendorStatusEnum.Accepted).ToList();
-            }
-            else
-            {
-                vendors = _vendorRepository.GetAll(includeProperties: "Account").Where(v => v.Status != VendorStatusEnum.Accepted).ToList();
-            }
+            List<Vendor> vendors = _vendorRepository.GetAll(includeProperties: "Account").ToList();
 
 
             if (vendors == null)
@@ -52,6 +44,30 @@ namespace API.Controllers
                 IsSuccess = true,
                 Message = "Data found",
                 Data = vendors
+            });
+        }
+
+        [HttpGet("{guid}")]
+        public IActionResult Details(Guid guid)
+        {
+            var vendor = _vendorRepository.GetByGuid(guid);
+
+
+            if (vendor == null)
+            {
+                return NotFound(new ResponseVM
+                {
+                    IsSuccess = false,
+                    Message = "Data not found"
+                });
+            }
+
+
+            return Ok(new ResponseVM
+            {
+                IsSuccess = true,
+                Message = "Data found",
+                Data = vendor
             });
         }
 
@@ -175,6 +191,89 @@ namespace API.Controllers
                 Message = "Data created",
                 Data = newAccount
             });
+        }
+
+        [HttpPut("{guid}/approved-by-admin")]
+        public IActionResult ApprovedByAdmin(Guid guid)
+        {
+            var vendor = _vendorRepository.GetByGuid(guid);
+
+            if (vendor == null)
+            {
+                return NotFound(new ResponseVM
+                {
+                    IsSuccess = false,
+                    Message = "Data not found"
+                });
+            }
+
+            vendor.Status = VendorStatusEnum.ApproveByAdmin;
+            _vendorRepository.SaveChanges();
+
+            return Ok(new ResponseVM
+            {
+                IsSuccess = true,
+                Message = "vendor approved by admin"
+            });
+        }
+
+        [HttpPut("{guid}/approved-by-manager")]
+        public IActionResult ApprovedByManager(Guid guid)
+        {
+            var vendor = _vendorRepository.GetByGuid(guid);
+
+            if (vendor == null)
+            {
+                return NotFound(new ResponseVM
+                {
+                    IsSuccess = false,
+                    Message = "Data not found"
+                });
+            }
+
+            vendor.Status = VendorStatusEnum.Accepted;
+            _vendorRepository.SaveChanges();
+
+            return Ok(new ResponseVM
+            {
+                IsSuccess = true,
+                Message = "vendor approved by manager, account is activated"
+            });
+        }
+
+        [HttpDelete("{guid}")]
+        public IActionResult Delete(Guid guid)
+        {
+            var vendor = _vendorRepository.GetByGuid(guid);
+            var accountVendor = _accountRepository.GetByGuid(vendor.AccountGuid);
+            if (vendor == null)
+            {
+                return NotFound(new ResponseVM
+                {
+                    IsSuccess = false,
+                    Message = "Data not found"
+                });
+            }
+            try
+            {
+                _vendorRepository.Delete(vendor);
+                _accountRepository.Delete(accountVendor);
+
+                return Ok(new ResponseVM
+                {
+                    IsSuccess = true,
+                    Message = "Successfully deleted data"
+                });
+            }
+            catch
+            {
+                return BadRequest(new ResponseVM
+                {
+                    IsSuccess = false,
+                    Message = "Something went wrong"
+                });
+            }
+
         }
     }
 

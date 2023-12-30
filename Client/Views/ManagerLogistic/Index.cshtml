@@ -23,8 +23,7 @@
                 <td>@managerLogistic.Email</td>
                 <td>@managerLogistic.NoTelp</td>
                 <td>
-                    <form method="post" asp-action="Delete">
-                        <input hidden asp-for="@managerLogistic.Guid" />
+                    <form method="post" asp-action="Delete" asp-route-guid="@managerLogistic.Guid">
                         <button type="submit" class="btn"><iconify-icon icon="ph:trash-bold"></iconify-icon></button>
                     </form>
                 </td>

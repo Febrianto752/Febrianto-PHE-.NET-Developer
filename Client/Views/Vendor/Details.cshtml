@@ -1,0 +1,22 @@
+﻿@model Vendor
+
+
+<div class="row justify-content-center">
+    <div class="col-sm-8 ">
+        <a asp-action="Index" class="btn btn-sm btn-info mb-3">&laquo;Back</a>
+        <partial name="_FlashMessage" />
+        <div class="card p-4 shadow-lg rounded">
+            <div class="card-body text-center">
+                <h3 class="card-title mb-5 text-center">Details Vendor</h3>
+
+                <div>
+                <img src="@Model.ProfileImage" alt="company" class="" style="width: 200px; height:200px;" />
+
+                </div>
+
+                <p>Jenis Perusahaan : @Model.TypeCompany</p>
+                <p>Bindag Usaha : @Model.BusinessField</p>
+            </div>
+        </div>
+    </div>
+</div>

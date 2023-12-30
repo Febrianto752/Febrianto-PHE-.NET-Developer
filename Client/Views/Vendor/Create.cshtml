@@ -8,6 +8,10 @@
                 
                 <form method="post" asp-action="Create" enctype="multipart/form-data">
                     <div class="mb-3">
+                        <label asp-for="CreateAccountVM.Name" class="form-label">Nama Perusahaan</label>
+                        <input class="form-control" asp-for="CreateAccountVM.Name" required>
+                    </div>
+                    <div class="mb-3">
                         <label asp-for="CreateAccountVM.Email" class="form-label">Email address</label>
                         <input class="form-control" asp-for="CreateAccountVM.Email" aria-describedby="emailHelp" required>
                     </div>
@@ -22,13 +26,10 @@
                         <input type="number" class="form-control" asp-for="CreateAccountVM.NoTelp" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label asp-for="CreateAccountVM.Name" class="form-label">Nama</label>
-                        <input class="form-control" asp-for="CreateAccountVM.Name" required>
-                    </div>
+                    
 
                     <div class="mb-3">
-                        <label asp-for="ProfileImage" class="form-label">Nama</label>
+                        <label asp-for="ProfileImage" class="form-label">Gambar Perusahaan</label>
                         <input class="form-control" asp-for="ProfileImage">
                     </div>
 

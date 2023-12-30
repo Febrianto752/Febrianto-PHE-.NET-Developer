@@ -36,8 +36,15 @@
                                     Manajemen
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" asp-controller="ManagerLogistic" asp-action="Index">Manager Logistik</a></li>
+                                @if (User.IsInRole(nameof(RoleEnum.Admin)))
+                                {
+                                    
+                                        <li><a class="dropdown-item" asp-controller="ManagerLogistic" asp-action="Index">Manager Logistik</a></li>
+                                    
+                                }
+                                    <li><a class="dropdown-item" asp-controller="Vendor" asp-action="Index">Vendor</a></li>
                                 </ul>
+                                
                             </li>
                         }
                         
