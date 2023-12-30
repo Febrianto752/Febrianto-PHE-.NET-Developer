@@ -1,5 +1,6 @@
 ﻿using Client.Models;
 using Client.Services.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -16,10 +17,9 @@ namespace Client.Controllers
             _managerLogisticService = managerLogisticService;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-
-
 
             return View();
         }

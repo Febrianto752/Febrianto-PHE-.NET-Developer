@@ -58,7 +58,7 @@ namespace API.Controllers
                 {
                     IsSuccess = true,
                     Message = "Berhasil login",
-                    Data = new { Token = token }
+                    Data = new TokenVM { Token = token }
                 });
             }
             catch

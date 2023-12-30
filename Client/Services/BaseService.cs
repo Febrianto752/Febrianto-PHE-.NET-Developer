@@ -9,11 +9,11 @@ namespace Client.Services
     public class BaseService : IBaseService
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        //private readonly ITokenProvider _tokenProvider;
-        public BaseService(IHttpClientFactory httpClientFactory)
+        private readonly ITokenService _tokenService;
+        public BaseService(IHttpClientFactory httpClientFactory, ITokenService tokenService)
         {
             _httpClientFactory = httpClientFactory;
-            //_tokenProvider = tokenProvider;
+            _tokenService = tokenService;
         }
 
         public async Task<ResponseVM?> SendAsync(RequestVM requestVM, bool withBearer = true)
@@ -33,8 +33,8 @@ namespace Client.Services
                 //token
                 if (withBearer)
                 {
-                    //var token = _tokenProvider.GetToken();
-                    //message.Headers.Add("Authorization", $"Bearer {token}");
+                    var token = _tokenService.GetToken();
+                    message.Headers.Add("Authorization", $"Bearer {token}");
                 }
 
                 message.RequestUri = new Uri(requestVM.Url);

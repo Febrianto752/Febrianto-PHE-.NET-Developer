@@ -1,4 +1,5 @@
 ﻿using DataAccess.Repositories.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.ViewModels;
@@ -19,7 +20,7 @@ namespace API.Controllers
             _accountRepository = accountRepository;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public IActionResult Index()
         {
             var managerLogistics = _accountRepository.GetAll().Where(a => a.Role == nameof(RoleEnum.Manager));
