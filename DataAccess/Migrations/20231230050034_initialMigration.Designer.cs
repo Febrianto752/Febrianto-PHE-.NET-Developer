@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231230014938_addSeeder")]
-    partial class addSeeder
+    [Migration("20231230050034_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,7 +53,7 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("password");
 
                     b.Property<string>("Role")
@@ -68,24 +68,24 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Guid = new Guid("07114b8f-db83-4f4c-9f68-941e76c9caf2"),
-                            CreatedDate = new DateTime(2023, 12, 30, 8, 49, 37, 243, DateTimeKind.Local).AddTicks(957),
+                            Guid = new Guid("9ff05d8f-8b22-4a88-b52d-27425dfa150e"),
+                            CreatedDate = new DateTime(2023, 12, 30, 12, 0, 33, 545, DateTimeKind.Local).AddTicks(9283),
                             Email = "admin@gmail.com",
-                            ModifiedDate = new DateTime(2023, 12, 30, 8, 49, 37, 243, DateTimeKind.Local).AddTicks(1025),
+                            ModifiedDate = new DateTime(2023, 12, 30, 12, 0, 33, 545, DateTimeKind.Local).AddTicks(9298),
                             Name = "Admin",
                             NoTelp = "081236767632",
-                            Password = "$2a$12$IlOuxaVv5n5LnCKfoD2oL.oDMZDPZDvZo2vQccoqFSdkay6z4.7Tm",
+                            Password = "$2a$12$cr0PbdiSpy3ke5RfKMYF4OFCic.fcJrz2MhPlJxiQMngVSv3jNi2a",
                             Role = "Admin"
                         },
                         new
                         {
-                            Guid = new Guid("573726d9-0f3f-465c-9293-750f86b744b6"),
-                            CreatedDate = new DateTime(2023, 12, 30, 8, 49, 37, 726, DateTimeKind.Local).AddTicks(6254),
+                            Guid = new Guid("c38b8bfb-649d-400a-8019-7e06c927414a"),
+                            CreatedDate = new DateTime(2023, 12, 30, 12, 0, 34, 35, DateTimeKind.Local).AddTicks(1761),
                             Email = "manager@gmail.com",
-                            ModifiedDate = new DateTime(2023, 12, 30, 8, 49, 37, 726, DateTimeKind.Local).AddTicks(6279),
+                            ModifiedDate = new DateTime(2023, 12, 30, 12, 0, 34, 35, DateTimeKind.Local).AddTicks(1784),
                             Name = "Ria Sutrani",
                             NoTelp = "081236733332",
-                            Password = "$2a$12$8fwIwrk95yc3zzKF0T6h5OuUR6PCHwmfO5vUYo/VE8/GBFLd2t90O",
+                            Password = "$2a$12$h5cKZ2E1vBh/e4yFG93Iae9pF/KR7OkLCiXFi/q3Lc4FvEnISKqF2",
                             Role = "Manager"
                         });
                 });

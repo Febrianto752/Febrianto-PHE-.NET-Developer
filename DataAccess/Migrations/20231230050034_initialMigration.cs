@@ -19,8 +19,7 @@ namespace DataAccess.Migrations
                     guid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     email = table.Column<string>(type: "varchar(100)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    password = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    password = table.Column<string>(type: "nvarchar(255)", nullable: false),
                     name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     no_telp = table.Column<string>(type: "longtext", nullable: false)
@@ -68,7 +67,7 @@ namespace DataAccess.Migrations
                     profile_image = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     status = table.Column<int>(type: "int", nullable: false),
-                    column_guid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    account_guid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     modified_date = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -76,8 +75,8 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_vendors", x => x.guid);
                     table.ForeignKey(
-                        name: "FK_vendors_accounts_column_guid",
-                        column: x => x.column_guid,
+                        name: "FK_vendors_accounts_account_guid",
+                        column: x => x.account_guid,
                         principalTable: "accounts",
                         principalColumn: "guid",
                         onDelete: ReferentialAction.Cascade);
@@ -113,6 +112,16 @@ namespace DataAccess.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
+            migrationBuilder.InsertData(
+                table: "accounts",
+                columns: new[] { "guid", "created_date", "email", "modified_date", "name", "no_telp", "password", "role" },
+                values: new object[] { new Guid("9ff05d8f-8b22-4a88-b52d-27425dfa150e"), new DateTime(2023, 12, 30, 12, 0, 33, 545, DateTimeKind.Local).AddTicks(9283), "admin@gmail.com", new DateTime(2023, 12, 30, 12, 0, 33, 545, DateTimeKind.Local).AddTicks(9298), "Admin", "081236767632", "$2a$12$cr0PbdiSpy3ke5RfKMYF4OFCic.fcJrz2MhPlJxiQMngVSv3jNi2a", "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "accounts",
+                columns: new[] { "guid", "created_date", "email", "modified_date", "name", "no_telp", "password", "role" },
+                values: new object[] { new Guid("c38b8bfb-649d-400a-8019-7e06c927414a"), new DateTime(2023, 12, 30, 12, 0, 34, 35, DateTimeKind.Local).AddTicks(1761), "manager@gmail.com", new DateTime(2023, 12, 30, 12, 0, 34, 35, DateTimeKind.Local).AddTicks(1784), "Ria Sutrani", "081236733332", "$2a$12$h5cKZ2E1vBh/e4yFG93Iae9pF/KR7OkLCiXFi/q3Lc4FvEnISKqF2", "Manager" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_project_tenders_project_guid",
                 table: "project_tenders",
@@ -124,9 +133,9 @@ namespace DataAccess.Migrations
                 column: "vendor_guid");
 
             migrationBuilder.CreateIndex(
-                name: "IX_vendors_column_guid",
+                name: "IX_vendors_account_guid",
                 table: "vendors",
-                column: "column_guid");
+                column: "account_guid");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

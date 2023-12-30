@@ -9,7 +9,7 @@ namespace Models
         [EmailAddress, Required, Column("email", TypeName = "varchar(100)")]
         public string Email { get; set; }
 
-        [Column("password"), Required]
+        [Column("password", TypeName = "nvarchar(255)")]
         public string Password { get; set; }
 
         [Column("name"), Required]

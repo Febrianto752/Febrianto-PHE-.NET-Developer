@@ -1,3 +1,5 @@
+using API.Services;
+using API.Services.interfaces;
 using DataAccess.Data;
 using DataAccess.Repositories;
 using DataAccess.Repositories.interfaces;
@@ -16,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IVendorRepository, VendorRepository>();
 
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddCors(option =>
 {
