@@ -61,11 +61,11 @@ namespace DataAccess.Migrations
                 columns: table => new
                 {
                     guid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    business_field = table.Column<string>(type: "longtext", nullable: false)
+                    business_field = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    type_company = table.Column<string>(type: "longtext", nullable: false)
+                    type_company = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    profile_image = table.Column<string>(type: "longtext", nullable: false)
+                    profile_image = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     status = table.Column<int>(type: "int", nullable: false),
                     column_guid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),

@@ -1,0 +1,144 @@
+﻿@model CreateVendorVM
+
+<div class="row justify-content-center">
+    <div class="col-sm-8 ">
+        <div class="card p-4 shadow-lg">
+            <div class="card-body">
+                <h3 class="card-title mb-5 text-center">Daftar</h3>
+                
+                <form method="post" asp-action="Create" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label asp-for="CreateAccountVM.Email" class="form-label">Email address</label>
+                        <input class="form-control" asp-for="CreateAccountVM.Email" aria-describedby="emailHelp" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label  asp-for="CreateAccountVM.Password" class="form-label">Password</label>
+                        <input type="password" class="form-control" asp-for="CreateAccountVM.Password" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="CreateAccountVM.NoTelp" class="form-label">Nomor Telepone</label>
+                        <input type="number" class="form-control" asp-for="CreateAccountVM.NoTelp" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="CreateAccountVM.Name" class="form-label">Nama</label>
+                        <input class="form-control" asp-for="CreateAccountVM.Name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProfileImage" class="form-label">Nama</label>
+                        <input class="form-control" asp-for="ProfileImage">
+                    </div>
+
+                    <button id="btnRegister" class="btn btn-primary mt-4">Daftar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        const btnImport = document.getElementById("btnRegister");
+        const CreateAccountVM_Email = document.getElementById("CreateAccountVM_Email");
+        const CreateAccountVM_Password = document.getElementById("CreateAccountVM_Password");
+        const CreateAccountVM_NoTelp = document.getElementById("CreateAccountVM_NoTelp");
+        const CreateAccountVM_Name = document.getElementById("CreateAccountVM_Name");
+        btnImport.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            this.innerHTML = `
+                    
+                        <div class="spinner-border text-info" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    `;
+
+            const fileInput = document.getElementById("ProfileImage");
+            const file = fileInput.files[0];
+
+            if (file) {
+                const formData = new FormData();
+                formData.append("CreateAccountVM.Email", CreateAccountVM_Email.value);
+                formData.append("CreateAccountVM.Password", CreateAccountVM_Password.value);
+                formData.append("CreateAccountVM.NoTelp", CreateAccountVM_NoTelp.value);
+                formData.append("CreateAccountVM.Name", CreateAccountVM_Name.value);
+                formData.append("ProfileImage", file);
+
+                // Ganti "http://example.com/upload" dengan URL API Anda
+                const apiUrl = "https://localhost:5000/api/vendors";
+
+                fetch(apiUrl, {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // Lakukan sesuatu dengan data respons dari API jika diperlukan
+                        console.log(data);
+
+                        if (data.isSuccess == true) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Successfully created your account',
+                                text: 'please login',
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                            })
+                        }
+
+                        CreateAccountVM_Email.value = "";
+                        CreateAccountVM_Password.value = "";
+                        CreateAccountVM_NoTelp.value = "";
+                        CreateAccountVM_Name.value = "";
+                        fileInput.value = null;
+                        btnImport.innerHTML = `
+                                    Daftar
+                                `;
+                    })
+
+
+                    .catch((error) => {
+                        // Tangani kesalahan jika terjadi
+                        console.error("Error:", error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something error, check your data',
+                        })
+                        btnImport.innerHTML = `
+                                    Daftar
+                                `;
+                    });
+            } else {
+                // Tampilkan pesan kesalahan jika file belum dipilih
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please Upload Your File!',
+                })
+
+                btnImport.innerHTML = `
+                            Daftar
+                        `;
+            }
+        });
+    </script>
+}
+
+
+
+
+
+
+
+
+
+

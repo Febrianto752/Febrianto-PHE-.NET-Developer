@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231229150257_initialMigration")]
-    partial class initialMigration
+    [Migration("20231230014938_addSeeder")]
+    partial class addSeeder
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,30 @@ namespace DataAccess.Migrations
                     b.HasKey("Guid");
 
                     b.ToTable("accounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Guid = new Guid("07114b8f-db83-4f4c-9f68-941e76c9caf2"),
+                            CreatedDate = new DateTime(2023, 12, 30, 8, 49, 37, 243, DateTimeKind.Local).AddTicks(957),
+                            Email = "admin@gmail.com",
+                            ModifiedDate = new DateTime(2023, 12, 30, 8, 49, 37, 243, DateTimeKind.Local).AddTicks(1025),
+                            Name = "Admin",
+                            NoTelp = "081236767632",
+                            Password = "$2a$12$IlOuxaVv5n5LnCKfoD2oL.oDMZDPZDvZo2vQccoqFSdkay6z4.7Tm",
+                            Role = "Admin"
+                        },
+                        new
+                        {
+                            Guid = new Guid("573726d9-0f3f-465c-9293-750f86b744b6"),
+                            CreatedDate = new DateTime(2023, 12, 30, 8, 49, 37, 726, DateTimeKind.Local).AddTicks(6254),
+                            Email = "manager@gmail.com",
+                            ModifiedDate = new DateTime(2023, 12, 30, 8, 49, 37, 726, DateTimeKind.Local).AddTicks(6279),
+                            Name = "Ria Sutrani",
+                            NoTelp = "081236733332",
+                            Password = "$2a$12$8fwIwrk95yc3zzKF0T6h5OuUR6PCHwmfO5vUYo/VE8/GBFLd2t90O",
+                            Role = "Manager"
+                        });
                 });
 
             modelBuilder.Entity("Models.Project", b =>
@@ -149,10 +173,9 @@ namespace DataAccess.Migrations
 
                     b.Property<Guid>("AccountGuid")
                         .HasColumnType("char(36)")
-                        .HasColumnName("column_guid");
+                        .HasColumnName("account_guid");
 
                     b.Property<string>("BusinessField")
-                        .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("business_field");
 
@@ -165,7 +188,6 @@ namespace DataAccess.Migrations
                         .HasColumnName("modified_date");
 
                     b.Property<string>("ProfileImage")
-                        .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("profile_image");
 
@@ -174,7 +196,6 @@ namespace DataAccess.Migrations
                         .HasColumnName("status");
 
                     b.Property<string>("TypeCompany")
-                        .IsRequired()
                         .HasColumnType("longtext")
                         .HasColumnName("type_company");
 

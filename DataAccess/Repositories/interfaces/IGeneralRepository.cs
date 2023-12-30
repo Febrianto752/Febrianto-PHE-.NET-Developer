@@ -2,7 +2,7 @@
 {
     public interface IGeneralRepository<TEntity>
     {
-        ICollection<TEntity> GetAll();
+        ICollection<TEntity> GetAll(string? includeProperties = null);
         TEntity? GetByGuid(Guid guid);
         TEntity? Create(TEntity entity);
         bool Update(TEntity entity);

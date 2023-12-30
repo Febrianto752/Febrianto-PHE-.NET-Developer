@@ -12,7 +12,7 @@ namespace Models
         [Column("password"), Required]
         public string Password { get; set; }
 
-        [Column("name")]
+        [Column("name"), Required]
         public string Name { get; set; }
 
         [Column("no_telp"), Required]

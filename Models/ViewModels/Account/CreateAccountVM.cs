@@ -17,7 +17,5 @@ namespace Models.ViewModels.Account
         [Required]
         public string NoTelp { get; set; }
 
-        [Required] // Admin, Manager, Vendor
-        public string Role { get; set; }
     }
 }

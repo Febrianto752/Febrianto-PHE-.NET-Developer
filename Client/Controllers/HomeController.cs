@@ -1,9 +1,6 @@
 ﻿using Client.Models;
 using Client.Services.interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Models.ViewModels;
-using Models.ViewModels.Account;
-using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace Client.Controllers
@@ -21,18 +18,7 @@ namespace Client.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<GetAccountVM>? list = new();
 
-            ResponseVM? response = await _managerLogisticService.GetAllManagerLogisticsAsync();
-
-            if (response != null && response.IsSuccess)
-            {
-                list = JsonConvert.DeserializeObject<List<GetAccountVM>>(Convert.ToString(response.Data));
-            }
-            else
-            {
-                TempData["error"] = response?.Message;
-            }
 
 
             return View();

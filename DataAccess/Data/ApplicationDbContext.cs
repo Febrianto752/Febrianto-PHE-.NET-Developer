@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models;
+using Utilities.Enums;
+using Utilities.Handlers;
 
 namespace DataAccess.Data
 {
@@ -17,7 +19,10 @@ namespace DataAccess.Data
         {
             base.OnModelCreating(modelBuilder);
 
-
+            modelBuilder.Entity<Account>().HasData(
+                    new Account { Guid = Guid.NewGuid(), Name = "Admin", Password = HashingHandler.HashPassword("Admin123"), Email = "admin@gmail.com", NoTelp = "081236767632", Role = nameof(RoleEnum.Admin), CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now },
+                    new Account { Guid = Guid.NewGuid(), Name = "Ria Sutrani", Password = HashingHandler.HashPassword("Manager123"), Email = "manager@gmail.com", NoTelp = "081236733332", Role = nameof(RoleEnum.Manager), CreatedDate = DateTime.Now, ModifiedDate = DateTime.Now }
+                );
         }
     }
 }

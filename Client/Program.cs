@@ -10,6 +10,7 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IBaseService, BaseService>();
 builder.Services.AddScoped<IManagerLogisticService, ManagerLogisticService>();
+builder.Services.AddScoped<IVendorService, VendorService>();
 
 var app = builder.Build();
 

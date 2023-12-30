@@ -1,5 +1,6 @@
 ﻿using DataAccess.Data;
 using DataAccess.Repositories.interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories
 {
@@ -40,9 +41,20 @@ namespace DataAccess.Repositories
 
         }
 
-        public ICollection<TEntity> GetAll()
+        public ICollection<TEntity> GetAll(string? includeProperties = null)
         {
-            return _context.Set<TEntity>().ToList();
+            IQueryable<TEntity> query = _context.Set<TEntity>();
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query.ToList();
+
+            //return _context.Set<TEntity>().ToList();
         }
 
         public TEntity? GetByGuid(Guid guid)

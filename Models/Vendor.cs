@@ -9,18 +9,18 @@ namespace Models
     public class Vendor : BaseEntity
     {
         [Column("business_field")]
-        public string BusinessField { get; set; }
+        public string? BusinessField { get; set; }
 
         [Column("type_company")]
-        public string TypeCompany { get; set; }
+        public string? TypeCompany { get; set; }
 
         [Column("profile_image")]
-        public string ProfileImage { get; set; }
+        public string? ProfileImage { get; set; }
 
         [Column("status")]
         public VendorStatusEnum Status { get; set; }
 
-        [Column("column_guid"), Required]
+        [Column("account_guid"), Required]
         public Guid AccountGuid { get; set; }
 
         [ForeignKey("AccountGuid"), ValidateNever]
