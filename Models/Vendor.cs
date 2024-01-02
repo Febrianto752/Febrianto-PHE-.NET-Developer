@@ -25,5 +25,7 @@ namespace Models
 
         [ForeignKey("AccountGuid"), ValidateNever]
         public Account? Account { get; set; }
+
+        public ICollection<ProjectTender>? ProjectTenders { get; set; }
     }
 }

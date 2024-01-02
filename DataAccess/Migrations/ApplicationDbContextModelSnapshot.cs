@@ -66,24 +66,24 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Guid = new Guid("9ff05d8f-8b22-4a88-b52d-27425dfa150e"),
-                            CreatedDate = new DateTime(2023, 12, 30, 12, 0, 33, 545, DateTimeKind.Local).AddTicks(9283),
+                            Guid = new Guid("88fe121c-b2e6-4014-85b1-8a4b963497ef"),
+                            CreatedDate = new DateTime(2024, 1, 2, 15, 9, 1, 55, DateTimeKind.Local).AddTicks(7663),
                             Email = "admin@gmail.com",
-                            ModifiedDate = new DateTime(2023, 12, 30, 12, 0, 33, 545, DateTimeKind.Local).AddTicks(9298),
+                            ModifiedDate = new DateTime(2024, 1, 2, 15, 9, 1, 55, DateTimeKind.Local).AddTicks(7682),
                             Name = "Admin",
                             NoTelp = "081236767632",
-                            Password = "$2a$12$cr0PbdiSpy3ke5RfKMYF4OFCic.fcJrz2MhPlJxiQMngVSv3jNi2a",
+                            Password = "$2a$12$P8xv17YMbXZJH.V6ARbyXu7AoJS.a5rcQb/qInBcTVl6JIEokFeWa",
                             Role = "Admin"
                         },
                         new
                         {
-                            Guid = new Guid("c38b8bfb-649d-400a-8019-7e06c927414a"),
-                            CreatedDate = new DateTime(2023, 12, 30, 12, 0, 34, 35, DateTimeKind.Local).AddTicks(1761),
+                            Guid = new Guid("6c01e846-5d94-4f55-886d-84ee1a379ff7"),
+                            CreatedDate = new DateTime(2024, 1, 2, 15, 9, 1, 549, DateTimeKind.Local).AddTicks(5353),
                             Email = "manager@gmail.com",
-                            ModifiedDate = new DateTime(2023, 12, 30, 12, 0, 34, 35, DateTimeKind.Local).AddTicks(1784),
+                            ModifiedDate = new DateTime(2024, 1, 2, 15, 9, 1, 549, DateTimeKind.Local).AddTicks(5372),
                             Name = "Ria Sutrani",
                             NoTelp = "081236733332",
-                            Password = "$2a$12$h5cKZ2E1vBh/e4yFG93Iae9pF/KR7OkLCiXFi/q3Lc4FvEnISKqF2",
+                            Password = "$2a$12$V65aarSOmq4GimbmI3EREuLTjdy3ojnpkBU5zo9dxidy7vuBEredC",
                             Role = "Manager"
                         });
                 });
@@ -141,7 +141,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("modified_date");
 
-                    b.Property<Guid>("PorjectGuid")
+                    b.Property<Guid>("ProjectGuid")
                         .HasColumnType("char(36)")
                         .HasColumnName("project_guid");
 
@@ -155,7 +155,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Guid");
 
-                    b.HasIndex("PorjectGuid");
+                    b.HasIndex("ProjectGuid");
 
                     b.HasIndex("VendorGuid");
 
@@ -207,13 +207,13 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("Models.ProjectTender", b =>
                 {
                     b.HasOne("Models.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("PorjectGuid")
+                        .WithMany("ProjectTenders")
+                        .HasForeignKey("ProjectGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Models.Vendor", "Vendor")
-                        .WithMany()
+                        .WithMany("ProjectTenders")
                         .HasForeignKey("VendorGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -232,6 +232,16 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("Models.Project", b =>
+                {
+                    b.Navigation("ProjectTenders");
+                });
+
+            modelBuilder.Entity("Models.Vendor", b =>
+                {
+                    b.Navigation("ProjectTenders");
                 });
 #pragma warning restore 612, 618
         }

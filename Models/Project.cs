@@ -18,5 +18,7 @@ namespace Models
         [Required, Column("end_date")]
         public DateTime EndDate { get; set; }
 
+        public ICollection<ProjectTender>? ProjectTenders { get; set; }
+
     }
 }

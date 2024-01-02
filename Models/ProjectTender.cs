@@ -16,9 +16,9 @@ namespace Models
 
 
         [Required, Column("project_guid")]
-        public Guid PorjectGuid { get; set; }
+        public Guid ProjectGuid { get; set; }
 
-        [ForeignKey("PorjectGuid"), ValidateNever]
+        [ForeignKey("ProjectGuid"), ValidateNever]
         public Project? Project { get; set; }
 
 

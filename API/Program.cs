@@ -21,6 +21,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseMySql(
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IVendorRepository, VendorRepository>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IProjectTenderRepository, ProjectTenderRepository>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 
