@@ -38,11 +38,11 @@
                                 <ul class="dropdown-menu">
                                 @if (User.IsInRole(nameof(RoleEnum.Admin)))
                                 {
-                                    
                                         <li><a class="dropdown-item" asp-controller="ManagerLogistic" asp-action="Index">Manager Logistik</a></li>
                                     
                                 }
                                     <li><a class="dropdown-item" asp-controller="Vendor" asp-action="Index">Vendor</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Project" asp-action="Index">Proyek</a></li>
                                 </ul>
                                 
                             </li>

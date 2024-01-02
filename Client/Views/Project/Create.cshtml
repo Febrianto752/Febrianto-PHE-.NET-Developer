@@ -1,0 +1,37 @@
+﻿@model CreateProjectVM
+
+<div class="row justify-content-center">
+    <div class="col-sm-8 ">
+        <partial name="_FlashMessage" />
+        <div class="card p-4 shadow-lg rounded">
+            <div class="card-body">
+                <h3 class="card-title mb-5 text-center">Tambah Proyek</h3>
+
+                <form method="post" asp-action="Create">
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Name Proyek</label>
+                        <input class="form-control" asp-for="Name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Description</label>
+                        <textarea type="password" class="form-control" asp-for="Description" required><</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="StartDate" class="form-label">Tanggal Mulai</label>
+                        <input type="date" class="form-control" asp-for="StartDate" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="EndDate" class="form-label">Tanggal Mulai</label>
+                        <input type="date" class="form-control" asp-for="EndDate" required>
+                    </div>
+
+
+                    <button class="btn btn-primary mt-4">Tambah</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿@model List<Project>
+
+<h2 class="text-center my-4">Daftar Proyek</h2>
+
+<partial name="_FlashMessage"/>
+<a asp-action="Create" class="btn btn-sm btn-success">Tambah</a>
+
+@if(Model.Count() > 0)
+{
+    <div class="row my-5">
+        @foreach(var project in Model)
+        {
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body shadow-lg">
+                        <h5 class="card-title">@project.Name</h5>
+                        <p class="card-text">Tanggal Mulai : @project.StartDate.ToShortDateString()</p>
+                        <p class="card-text">Tanggal Selesai : @project.EndDate.ToShortDateString()</p>
+                        <a class="btn btn-sm btn-light" asp-action="Details">Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+}
+else
+{
+    <p class="text-center">Data Proyek Kosong, silahkan tambah data proyek.</p>
+}
