@@ -20,7 +20,7 @@ namespace Client.Services
         {
             try
             {
-                HttpClient client = _httpClientFactory.CreateClient("MangoAPI");
+                HttpClient client = _httpClientFactory.CreateClient("SMSAPI");
                 HttpRequestMessage message = new();
                 if (requestVM.ContentType == ContentTypeEnum.MultipartFormData)
                 {
@@ -68,9 +68,6 @@ namespace Client.Services
                         message.Content = new StringContent(JsonConvert.SerializeObject(requestVM.Data), Encoding.UTF8, "application/json");
                     }
                 }
-
-
-
 
 
                 HttpResponseMessage? apiResponse = null;

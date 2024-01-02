@@ -8,7 +8,7 @@ namespace Utilities.Handlers
         {
             if (vendorStatus == VendorStatusEnum.Pending) return nameof(VendorStatusEnum.Pending);
             if (vendorStatus == VendorStatusEnum.Accepted) return nameof(VendorStatusEnum.Accepted);
-            if (vendorStatus == VendorStatusEnum.ApproveByAdmin) return nameof(VendorStatusEnum.ApproveByAdmin);
+            if (vendorStatus == VendorStatusEnum.ApproveByAdmin) return "Approve By Admin";
             else return nameof(VendorStatusEnum.Rejected);
         }
     }

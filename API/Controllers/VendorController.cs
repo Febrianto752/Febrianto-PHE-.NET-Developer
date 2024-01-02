@@ -50,7 +50,7 @@ namespace API.Controllers
         [HttpGet("{guid}")]
         public IActionResult Details(Guid guid)
         {
-            var vendor = _vendorRepository.GetByGuid(guid);
+            var vendor = _vendorRepository.GetByGuid(v => v.Guid == guid, includeProperties: "Account");
 
 
             if (vendor == null)
@@ -196,7 +196,7 @@ namespace API.Controllers
         [HttpPut("{guid}/approved-by-admin")]
         public IActionResult ApprovedByAdmin(Guid guid)
         {
-            var vendor = _vendorRepository.GetByGuid(guid);
+            var vendor = _vendorRepository.GetByGuid(v => v.Guid == guid);
 
             if (vendor == null)
             {
@@ -220,7 +220,7 @@ namespace API.Controllers
         [HttpPut("{guid}/approved-by-manager")]
         public IActionResult ApprovedByManager(Guid guid)
         {
-            var vendor = _vendorRepository.GetByGuid(guid);
+            var vendor = _vendorRepository.GetByGuid(v => v.Guid == guid);
 
             if (vendor == null)
             {
@@ -244,8 +244,7 @@ namespace API.Controllers
         [HttpDelete("{guid}")]
         public IActionResult Delete(Guid guid)
         {
-            var vendor = _vendorRepository.GetByGuid(guid);
-            var accountVendor = _accountRepository.GetByGuid(vendor.AccountGuid);
+            var vendor = _vendorRepository.GetByGuid(v => v.Guid == guid);
             if (vendor == null)
             {
                 return NotFound(new ResponseVM
@@ -254,6 +253,18 @@ namespace API.Controllers
                     Message = "Data not found"
                 });
             }
+
+            var accountVendor = _accountRepository.GetByGuid(a => a.Guid == vendor.Guid);
+
+            if (accountVendor == null)
+            {
+                return NotFound(new ResponseVM
+                {
+                    IsSuccess = false,
+                    Message = "Data not found"
+                });
+            }
+
             try
             {
                 _vendorRepository.Delete(vendor);

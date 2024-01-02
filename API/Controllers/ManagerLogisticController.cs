@@ -99,7 +99,7 @@ namespace API.Controllers
         [HttpPut("{guid}")]
         public IActionResult Edit(Guid guid, [FromBody] EditAccountVM editAccountVM)
         {
-            var account = _accountRepository.GetByGuid(guid);
+            var account = _accountRepository.GetByGuid(a => a.Guid == guid);
 
             if (account == null)
             {
@@ -139,7 +139,7 @@ namespace API.Controllers
         [HttpDelete("{guid}")]
         public IActionResult Delete(Guid guid)
         {
-            var account = _accountRepository.GetByGuid(guid);
+            var account = _accountRepository.GetByGuid(a => a.Guid == guid);
 
             if (account == null)
             {

@@ -1,6 +1,7 @@
 ﻿using DataAccess.Data;
 using DataAccess.Repositories.interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace DataAccess.Repositories
 {
@@ -57,13 +58,29 @@ namespace DataAccess.Repositories
             //return _context.Set<TEntity>().ToList();
         }
 
-        public TEntity? GetByGuid(Guid guid)
+        public TEntity? GetByGuid(Expression<Func<TEntity, bool>> filter, string? includeProperties = null, bool tracked = true)
         {
+            IQueryable<TEntity> query;
+            if (tracked)
+            {
+                query = _context.Set<TEntity>();
 
+            }
+            else
+            {
+                query = _context.Set<TEntity>().AsNoTracking();
+            }
 
-            var entity = _context.Set<TEntity>().Find(guid);
-            //_context.ChangeTracker.Clear();
-            return entity;
+            query = query.Where(filter);
+            if (!string.IsNullOrEmpty(includeProperties))
+            {
+                foreach (var includeProp in includeProperties
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+            return query.FirstOrDefault();
         }
 
 
@@ -76,10 +93,6 @@ namespace DataAccess.Repositories
                 return true;
             }
             catch { return false; }
-        }
-        public bool IsExist(Guid guid)
-        {
-            return GetByGuid(guid) is not null;
         }
 
         public void SaveChanges()
