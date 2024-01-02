@@ -25,6 +25,8 @@ namespace Client.Controllers
 
             ViewData["username"] = username;
 
+
+
             return View();
         }
 

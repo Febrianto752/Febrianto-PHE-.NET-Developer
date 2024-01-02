@@ -24,7 +24,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var projects = _projectRepository.GetAll().ToList();
             if (projects == null)
@@ -35,6 +35,17 @@ namespace API.Controllers
                     Message = "Data not found"
                 });
             }
+
+            var projectTenders = _projectTenderRepository.GetAll();
+
+            projects = projects.Select(p =>
+            {
+                var tendersByProject = projectTenders.Where(pt => pt.ProjectGuid == p.Guid).ToList();
+
+                p.ProjectTenders = tendersByProject;
+                return p;
+
+            }).ToList();
 
 
             return Ok(new ResponseVM
@@ -50,8 +61,6 @@ namespace API.Controllers
         {
             var project = _projectRepository.GetByGuid(v => v.Guid == guid);
 
-
-
             if (project == null)
             {
                 return NotFound(new ResponseVM
@@ -61,6 +70,9 @@ namespace API.Controllers
                 });
             }
 
+            var tendersByProject = _projectTenderRepository.GetAll().Where(pt => pt.ProjectGuid == project.Guid).ToList();
+
+            project.ProjectTenders = tendersByProject;
 
             return Ok(new ResponseVM
             {
