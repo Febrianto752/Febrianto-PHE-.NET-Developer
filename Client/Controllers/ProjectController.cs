@@ -80,5 +80,25 @@ namespace Client.Controllers
 
             return View(project);
         }
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Guid guid)
+        {
+            ResponseVM? response = await _projectService.DeleteProjectAsync(guid);
+
+            if (response != null && response.IsSuccess)
+            {
+                TempData["Success"] = "Berhasil menghapus project";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["Error"] = response?.Message;
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

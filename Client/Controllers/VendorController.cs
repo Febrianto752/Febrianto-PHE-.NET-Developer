@@ -101,14 +101,14 @@ namespace Client.Controllers
         }
 
 
-        [HttpPost("{guid}")]
+        [HttpPost]
         public async Task<IActionResult> Delete(Guid guid)
         {
             ResponseVM? response = await _vendorService.DeleteVendor(guid);
 
             if (response != null && response.IsSuccess)
             {
-                TempData["Success"] = "vendor deleted successfully";
+                TempData["Success"] = "Vendor deleted successfully";
                 return RedirectToAction("Index");
             }
             else
