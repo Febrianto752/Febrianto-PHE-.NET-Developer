@@ -9,7 +9,7 @@ namespace Models
         [Required, Column("name")]
         public string Name { get; set; }
 
-        [Required, Column("description")]
+        [Required, Column("description", TypeName = "text")]
         public string Description { get; set; }
 
         [Required, Column("start_date")]

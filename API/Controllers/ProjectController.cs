@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.ViewModels;
 using Models.ViewModels.Project;
+using Models.ViewModels.ProjectTender;
 using System.Net;
 using Utilities.Handlers;
 
@@ -15,12 +16,16 @@ namespace API.Controllers
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IProjectTenderRepository _projectTenderRepository;
+        private readonly IAccountRepository _accountRepository;
+        private readonly IVendorRepository _vendorRepository;
         private readonly ApplicationDbContext _db;
-        public ProjectController(IProjectRepository projectRepository, ApplicationDbContext db, IProjectTenderRepository projectTenderRepository)
+        public ProjectController(IProjectRepository projectRepository, ApplicationDbContext db, IProjectTenderRepository projectTenderRepository, IAccountRepository accountRepository, IVendorRepository vendorRepository)
         {
             _projectRepository = projectRepository;
-            _db = db;
             _projectTenderRepository = projectTenderRepository;
+            _accountRepository = accountRepository;
+            _vendorRepository = vendorRepository;
+            _db = db;
         }
 
         [HttpGet]
@@ -60,6 +65,7 @@ namespace API.Controllers
         public IActionResult Details(Guid guid)
         {
             var project = _projectRepository.GetByGuid(v => v.Guid == guid);
+            var projectDetails = new ProjectDetailsVM();
 
             if (project == null)
             {
@@ -70,15 +76,48 @@ namespace API.Controllers
                 });
             }
 
+            projectDetails.ProjectGuid = project.Guid;
+            projectDetails.ProjectName = project.Name;
+            projectDetails.Description = project.Description;
+            projectDetails.Description = project.Description;
+            projectDetails.StartDate = project.StartDate;
+            projectDetails.EndDate = project.EndDate;
+
+
             var tendersByProject = _projectTenderRepository.GetAll().Where(pt => pt.ProjectGuid == project.Guid).ToList();
 
-            project.ProjectTenders = tendersByProject;
+            if (tendersByProject != null)
+            {
+                var vendors = _vendorRepository.GetAll();
+                var accounts = _accountRepository.GetAll();
+
+                projectDetails.VendorParticipants = tendersByProject.Select(tp =>
+                {
+
+                    var vendor = vendors.FirstOrDefault(v => v.Guid == tp.VendorGuid);
+                    var vendorAccount = accounts.FirstOrDefault(a => a.Guid == vendor.AccountGuid);
+
+                    var vendorParticiapnt = new VendorParticipantVM()
+                    {
+                        ProjectTenderGuid = tp.Guid,
+                        VendorName = vendorAccount.Name,
+                        BusinessField = vendor.BusinessField,
+                        TypeCompany = vendor.TypeCompany,
+
+                    };
+
+                    return vendorParticiapnt;
+
+
+                }).ToList();
+            }
+
 
             return Ok(new ResponseVM
             {
                 IsSuccess = true,
                 Message = "Data found",
-                Data = project
+                Data = projectDetails
             });
         }
 

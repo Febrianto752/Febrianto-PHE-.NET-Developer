@@ -35,7 +35,7 @@ namespace Client.Controllers
         }
 
 
-        [HttpGet("{guid}")]
+        [HttpGet]
         public async Task<IActionResult> Details(Guid guid)
         {
             Vendor vendor = new();

@@ -66,24 +66,24 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Guid = new Guid("88fe121c-b2e6-4014-85b1-8a4b963497ef"),
-                            CreatedDate = new DateTime(2024, 1, 2, 15, 9, 1, 55, DateTimeKind.Local).AddTicks(7663),
+                            Guid = new Guid("5a4be756-d031-4dd0-866d-d8f698c75ef4"),
+                            CreatedDate = new DateTime(2024, 1, 3, 7, 21, 54, 705, DateTimeKind.Local).AddTicks(3942),
                             Email = "admin@gmail.com",
-                            ModifiedDate = new DateTime(2024, 1, 2, 15, 9, 1, 55, DateTimeKind.Local).AddTicks(7682),
+                            ModifiedDate = new DateTime(2024, 1, 3, 7, 21, 54, 705, DateTimeKind.Local).AddTicks(3958),
                             Name = "Admin",
                             NoTelp = "081236767632",
-                            Password = "$2a$12$P8xv17YMbXZJH.V6ARbyXu7AoJS.a5rcQb/qInBcTVl6JIEokFeWa",
+                            Password = "$2a$12$JvWp06x6yfvlDCLlaIflGOZ98mhtbOB5vE.Igtgy2raDCt8Cqi9E.",
                             Role = "Admin"
                         },
                         new
                         {
-                            Guid = new Guid("6c01e846-5d94-4f55-886d-84ee1a379ff7"),
-                            CreatedDate = new DateTime(2024, 1, 2, 15, 9, 1, 549, DateTimeKind.Local).AddTicks(5353),
+                            Guid = new Guid("4e4ae8a2-7bb4-4e90-808d-3e9a4ebebbb2"),
+                            CreatedDate = new DateTime(2024, 1, 3, 7, 21, 54, 982, DateTimeKind.Local).AddTicks(3068),
                             Email = "manager@gmail.com",
-                            ModifiedDate = new DateTime(2024, 1, 2, 15, 9, 1, 549, DateTimeKind.Local).AddTicks(5372),
+                            ModifiedDate = new DateTime(2024, 1, 3, 7, 21, 54, 982, DateTimeKind.Local).AddTicks(3092),
                             Name = "Ria Sutrani",
                             NoTelp = "081236733332",
-                            Password = "$2a$12$V65aarSOmq4GimbmI3EREuLTjdy3ojnpkBU5zo9dxidy7vuBEredC",
+                            Password = "$2a$12$FXJCidziFVYODbeV9mey9OY6MxTsxRB9HK6TAlEROM.SMAEVFVrCy",
                             Role = "Manager"
                         });
                 });
@@ -101,7 +101,7 @@ namespace DataAccess.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("description");
 
                     b.Property<DateTime>("EndDate")

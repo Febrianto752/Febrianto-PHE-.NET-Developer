@@ -42,7 +42,7 @@ namespace DataAccess.Migrations
                     guid = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     name = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    description = table.Column<string>(type: "longtext", nullable: false)
+                    description = table.Column<string>(type: "text", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     start_date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     end_date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -115,12 +115,12 @@ namespace DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "accounts",
                 columns: new[] { "guid", "created_date", "email", "modified_date", "name", "no_telp", "password", "role" },
-                values: new object[] { new Guid("6c01e846-5d94-4f55-886d-84ee1a379ff7"), new DateTime(2024, 1, 2, 15, 9, 1, 549, DateTimeKind.Local).AddTicks(5353), "manager@gmail.com", new DateTime(2024, 1, 2, 15, 9, 1, 549, DateTimeKind.Local).AddTicks(5372), "Ria Sutrani", "081236733332", "$2a$12$V65aarSOmq4GimbmI3EREuLTjdy3ojnpkBU5zo9dxidy7vuBEredC", "Manager" });
+                values: new object[] { new Guid("4e4ae8a2-7bb4-4e90-808d-3e9a4ebebbb2"), new DateTime(2024, 1, 3, 7, 21, 54, 982, DateTimeKind.Local).AddTicks(3068), "manager@gmail.com", new DateTime(2024, 1, 3, 7, 21, 54, 982, DateTimeKind.Local).AddTicks(3092), "Ria Sutrani", "081236733332", "$2a$12$FXJCidziFVYODbeV9mey9OY6MxTsxRB9HK6TAlEROM.SMAEVFVrCy", "Manager" });
 
             migrationBuilder.InsertData(
                 table: "accounts",
                 columns: new[] { "guid", "created_date", "email", "modified_date", "name", "no_telp", "password", "role" },
-                values: new object[] { new Guid("88fe121c-b2e6-4014-85b1-8a4b963497ef"), new DateTime(2024, 1, 2, 15, 9, 1, 55, DateTimeKind.Local).AddTicks(7663), "admin@gmail.com", new DateTime(2024, 1, 2, 15, 9, 1, 55, DateTimeKind.Local).AddTicks(7682), "Admin", "081236767632", "$2a$12$P8xv17YMbXZJH.V6ARbyXu7AoJS.a5rcQb/qInBcTVl6JIEokFeWa", "Admin" });
+                values: new object[] { new Guid("5a4be756-d031-4dd0-866d-d8f698c75ef4"), new DateTime(2024, 1, 3, 7, 21, 54, 705, DateTimeKind.Local).AddTicks(3942), "admin@gmail.com", new DateTime(2024, 1, 3, 7, 21, 54, 705, DateTimeKind.Local).AddTicks(3958), "Admin", "081236767632", "$2a$12$JvWp06x6yfvlDCLlaIflGOZ98mhtbOB5vE.Igtgy2raDCt8Cqi9E.", "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_project_tenders_project_guid",

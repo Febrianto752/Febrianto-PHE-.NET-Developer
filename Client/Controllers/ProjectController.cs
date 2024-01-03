@@ -62,16 +62,16 @@ namespace Client.Controllers
             return View(createProjectVM);
         }
 
-        [HttpGet("{guid}")]
+        [HttpGet]
         public async Task<IActionResult> Details(Guid guid)
         {
-            Project? project = new();
+            ProjectDetailsVM? project = new();
 
             ResponseVM? response = await _projectService.GetProjectByGuidAsync(guid);
 
             if (response != null && response.IsSuccess)
             {
-                project = JsonConvert.DeserializeObject<Project>(Convert.ToString(response.Data));
+                project = JsonConvert.DeserializeObject<ProjectDetailsVM>(Convert.ToString(response.Data));
             }
             else
             {
