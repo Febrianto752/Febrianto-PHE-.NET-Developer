@@ -81,7 +81,52 @@ namespace Client.Controllers
             return View(project);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid guid)
+        {
+            ResponseVM? response = await _projectService.GetProjectByGuidAsync(guid);
 
+            if (response != null && response.IsSuccess)
+            {
+                ProjectDetailsVM? model = JsonConvert.DeserializeObject<ProjectDetailsVM>(Convert.ToString(response.Data));
+
+                var editProjectVM = new EditProjectVM()
+                {
+                    Guid = model.ProjectGuid,
+                    Name = model.ProjectName,
+                    Description = model.Description,
+                    StartDate = model.StartDate,
+                    EndDate = model.EndDate,
+                };
+
+                return View(editProjectVM);
+            }
+            else
+            {
+                TempData["error"] = response?.Message;
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditProjectVM editProjectVM)
+        {
+            if (ModelState.IsValid)
+            {
+                ResponseVM? response = await _projectService.EditProjectAsync(editProjectVM.Guid, editProjectVM);
+
+                if (response != null && response.IsSuccess)
+                {
+                    TempData["Success"] = "Berhasil mengubah project";
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData["Error"] = response?.Message;
+                }
+            }
+            return View(editProjectVM);
+        }
 
 
         [HttpPost]
